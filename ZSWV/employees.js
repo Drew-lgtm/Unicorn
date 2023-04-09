@@ -64,7 +64,7 @@ function main(dtoIn) {
 
 // Testovací dtoIn
 const dtoIn = {
-  numEmployees: 50,
+  numEmployees: 5,
   min: 19,
   max: 35
 };
