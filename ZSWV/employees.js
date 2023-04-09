@@ -38,10 +38,11 @@ function generateBirthdate(minAge, maxAge) {
 // Generování náhodného pracovního úvazku
 function generateWorkload() {
   const workloads = [10, 20, 30, 40];
-  return workloads[Math.floor(Math.random() * workloads.length)];
+  //console.log(workloads.length);
+  return workloads[Math.floor(Math.random() * 4)];
 }
 
-// Hlavní funkce programu
+// Spojovaci funkce main
 function main(dtoIn) {
   const numEmployees = dtoIn.numEmployees;
   const minAge = dtoIn.minAge;
@@ -75,3 +76,4 @@ const dtoIn = {
 
 const dtoOut = main(dtoIn);
 console.log(dtoOut);
+
