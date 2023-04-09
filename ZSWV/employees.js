@@ -24,10 +24,13 @@ function randomItem(items) {
 
 // Generování náhodného data narození
 function generateBirthdate(min, max) {
-  const age = Math.floor(Math.random() * (max - min + 1)) + min;
-  const date = new Date();
-  date.setFullYear(date.getFullYear() - age);
-  date.setHours(0, 0, 0, 0);
+  const today = new Date();
+  const minYear = today.getFullYear() - max;
+  const maxYear = today.getFullYear() - min;
+  const year = Math.floor(Math.random() * (maxYear - minYear + 1)) + minYear;
+  const month = Math.floor(Math.random() * 12);
+  const day = Math.floor(Math.random() * 28) + 1; // Zde by se ještě hodilo dodělat podmínky na délku měsíců
+  const date = new Date(year, month, day);
   return date.toISOString();
 }
 
@@ -64,7 +67,7 @@ function main(dtoIn) {
 
 // Testovací dtoIn
 const dtoIn = {
-  numEmployees: 5,
+  numEmployees: 50,
   min: 19,
   max: 35
 };
