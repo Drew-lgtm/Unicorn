@@ -1,31 +1,33 @@
-function desitkovaNaTrojkovou(cislo) {
+// funkce
+function tenToThree(number) {
     let result = "";
     let iserror = false;
     
-    if (cislo === "") { // ověřuje, jestli vstup není prázdná hodnota
+// validace (selekce)
+    if (number === "") { // ověřuje, jestli vstup není prázdná hodnota
       iserror = true;
-      return {result, iserror};
+      return {iserror};
     }
     
-    if (isNaN(cislo)) { // ověří zda je vstup číslo
+    if (isNaN(number)) { // ověří zda je vstup číslo
       iserror = true;
-      return {result, iserror};
+      return {iserror};
     }
     
-    cislo = Number(cislo); // převede řetězec na číslo
+    number = Number(number); // převede řetězec na číslo (pro jistotu)
     
-    if (cislo < 0) { // kontrola, jestli čístlo není záporné. Tento algoritmus zpracovává pouze kladná čísla na vstupu
+    if (number < 0) { // kontrola, jestli čístlo není záporné. Tento algoritmus zpracovává pouze kladná čísla na vstupu
       iserror = true;
-      return {result, iserror};
+      return {iserror};
     }
     
-    while (cislo > 0) { // převod čísla
-      let zbytek = cislo % 3;
-      result = zbytek + result;
-      cislo = Math.floor(cislo / 3);
+    while (number > 0) { // samotný převod čísla do trojkové soustavy
+      let remain = number % 3;
+      result = remain + result;
+      number = Math.floor(number / 3);
     }
     
-    return {result, iserror};
+    return {result};
   }
   
   // testovací hodnoty (přidal jsem i errorové)
@@ -33,12 +35,12 @@ function desitkovaNaTrojkovou(cislo) {
   
   // test správnosti převodu pro každé číslo, které tam vstupuje
   for (let i = 0; i < dtoIn.length; i++) {
-    let desitkoveCislo = dtoIn[i];
-    let {result, iserror} = desitkovaNaTrojkovou(desitkoveCislo);
+    let tenNumber = dtoIn[i];
+    let {result, iserror} = tenToThree(tenNumber);
     if (iserror === true) {
       console.log("Error: neplatné číslo");
     } else {
-      console.log("Desítkové číslo:", desitkoveCislo, "Trojkové číslo:", result);
+      console.log("Desítkové číslo:", tenNumber, "Trojkové číslo:", result);
     }
   }
   
