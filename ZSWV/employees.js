@@ -1,4 +1,12 @@
-// Definice datové struktury Employee
+//seznam ženských jmen a příjmení pro random generování
+const femaleNames = ['Adéla', 'Alena', 'Božena', 'Dagmar', 'Daniela', 'Eliška', 'Emma', 'Hana', 'Jana', 'Jiřina', 'Kamila', 'Karla', 'Kateřina', 'Lenka', 'Linda', 'Lucie', 'Marie', 'Martina', 'Míša', 'Nikola', 'Olga', 'Petra', 'Renata', 'Simona', 'Šárka', 'Tereza', 'Vanda', 'Veronika', 'Věra', 'Vlasta', 'Zdeňka', 'Zuzana'];
+const femaleSurnames = ['Nováková', 'Svobodová', 'Novotná', 'Dvořáková', 'Černá', 'Procházková', 'Kučerová', 'Veselá', 'Horáčková', 'Němcová', 'Kratochvílová', 'Benešová', 'Krejčí', 'Králová', 'Jelínková', 'Vávrová', 'Růžičková', 'Bartošová', 'Fialová', 'Hájková', 'Sedláčková', 'Matějíčková', 'Křížová', 'Hlaváčková', 'Dušková', 'Blahová', 'Šimková', 'Vondráčková', 'Malíková', 'Roubalová', 'Musilová'];
+
+//seznam mužkých...
+const maleNames = ['Adam', 'Bohumil', 'David', 'Dominik', 'Filip', 'Jakub', 'Jan', 'Jiří', 'Josef', 'Lukáš', 'Martin', 'Matěj', 'Michal', 'Petr', 'Radek', 'Rudolf', 'Šimon', 'Tomáš', 'Václav', 'Vít', 'Zbyněk', 'Zdeněk'];
+const maleSurnames = ['Novák', 'Svoboda', 'Novotný', 'Dvořák', 'Černý', 'Procházka', 'Kučera', 'Veselý', 'Horáček', 'Němec', 'Kratochvíl', 'Beneš', 'Krejčí', 'Královský', 'Jelínek', 'Vávra', 'Růžička', 'Bartoš', 'Fiala', 'Hájek', 'Sedláček', 'Matějíček', 'Kříž', 'Hlaváček', 'Dušek', 'Blaha', 'Šimek', 'Vondráček', 'Malý', 'Roubal', 'Musil'];
+
+//  Classa Employee
 class Employee {
   constructor(name, surname, gender, birthdate, workload) {
     this.name = name;
@@ -9,71 +17,59 @@ class Employee {
   }
 }
 
-// Generování náhodného jména
-function generateName() {
-  const names = ['Alice', 'Bob', 'Charlie', 'David', 'Eva', 'Frank', 'Gina', 'Harry', 'Irene', 'Jack', 'Kate', 'Liam', 'Mia', 'Noah', 'Olivia', 'Peter', 'Rachel', 'Steve', 'Tina', 'Zoe'];
-  return names[Math.floor(Math.random() * names.length)];
-}
-
-// Generování náhodného příjmení
-function generateSurname() {
-  const surnames = ['Smith', 'Johnson', 'Brown', 'Taylor', 'Miller', 'Davis', 'Wilson', 'Moore', 'Anderson', 'Jackson', 'Garcia', 'Martinez', 'Hernandez', 'Lopez', 'Clark', 'Lewis', 'Young', 'Allen', 'King', 'Wright'];
-  return surnames[Math.floor(Math.random() * surnames.length)];
-}
-
-// Generování náhodného pohlaví
-function generateGender() {
-  return Math.random() < 0.5 ? 'male' : 'female';
+//generování random #stackoverflow
+function randomItem(items) {
+  return items[Math.floor(Math.random()*items.length)];
 }
 
 // Generování náhodného data narození
-function generateBirthdate(minAge, maxAge) {
-  const age = Math.floor(Math.random() * (maxAge - minAge + 1)) + minAge;
+function generateBirthdate(min, max) {
+  const age = Math.floor(Math.random() * (max - min + 1)) + min;
   const date = new Date();
   date.setFullYear(date.getFullYear() - age);
   date.setHours(0, 0, 0, 0);
   return date.toISOString();
 }
 
-// Generování náhodného pracovního úvazku
-function generateWorkload() {
-  const workloads = [10, 20, 30, 40];
-  //console.log(workloads.length);
-  return workloads[Math.floor(Math.random() * 4)];
+
+function generateEmployee(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames) {
+  const isMale = Math.random() < 0.5; // náhodně určíme pohlaví
+  const name = isMale ? randomItem(maleNames) : randomItem(femaleNames); // náhodně vybereme jméno podle pohlaví
+  const surname = isMale ? randomItem(maleSurnames) : randomItem(femaleSurnames); // náhodně vybereme příjmení podle pohlaví
+  const gender = isMale ? 'male' : 'female'; // výběr pohlaví
+  const birthdate = generateBirthdate(min, max); // generování háhodného data narození
+  const workload = randomItem([10, 20, 30, 40]); // náhodný výběr
+
+  return new Employee(name, surname, gender, birthdate, workload);
 }
 
-// Spojovaci funkce main
+
+
 function main(dtoIn) {
   const numEmployees = dtoIn.numEmployees;
-  const minAge = dtoIn.minAge;
-  const maxAge = dtoIn.maxAge;
+  const min = dtoIn.min;
+  const max = dtoIn.max;
 
   const employees = [];
 
   for (let i = 0; i < numEmployees; i++) {
-    const name = generateName();
-    const surname = generateSurname();
-    const gender = generateGender();
-    const birthdate = generateBirthdate(minAge, maxAge);
-    const workload = generateWorkload();
-
-    employees.push(new Employee(name, surname, gender, birthdate, workload));
+    const employee = generateEmployee(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames);
+    employees.push(employee);
   }
 
-  const dtoOut = {
-    employees: employees
-  };
-
+  const dtoOut = { employees };
   return dtoOut;
 }
 
-// Testování programu
+
+// Testovací dtoIn
 const dtoIn = {
-  numEmployees: 10,
-  minAge: 18,
-  maxAge: 65
+  numEmployees: 5,
+  min: 19,
+  max: 35
 };
 
+// definice dtoOut a spuštění
 const dtoOut = main(dtoIn);
 console.log(dtoOut);
 
