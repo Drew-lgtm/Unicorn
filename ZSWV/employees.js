@@ -62,11 +62,11 @@ function main(dtoIn) {
 }
 
 
-// Testování
+// Testovací dtoIn
 const dtoIn = {
-  numEmployees: 1,
-  min: 18,
-  max: 65
+  numEmployees: 5,
+  min: 19,
+  max: 35
 };
 
 // definice dtoOut a spuštění
