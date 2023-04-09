@@ -10,7 +10,7 @@ class Employee {
   
   function generateRandomName() {
     // funkce pro generování náhodného jména
-  }
+  }globalThis
   
   function generateRandomSurname() {
     // funkce pro generování náhodného přijmení
