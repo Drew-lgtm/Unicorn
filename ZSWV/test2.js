@@ -9,3 +9,6 @@ function printAll(){
 }
 
 printAll();
+
+const answer = "waiting";
+answer = 42;
