@@ -1,20 +1,40 @@
-const femaleNames = ['Adéla', 'Alena', 'Božena', 'Dagmar', 'Daniela', 'Eliška', 'Emma', 'Hana', 'Jana', 'Jiřina', 'Kamila', 'Karla', 'Kateřina', 'Lenka', 'Linda', 'Lucie', 'Marie', 'Martina', 'Míša', 'Nikola', 'Olga', 'Petra', 'Renata', 'Simona', 'Šárka', 'Tereza', 'Vanda', 'Veronika', 'Věra', 'Vlasta', 'Zdeňka', 'Zuzana'];
+let answer = 42;
+answer %= 10;
+console.log(answer);
 
-const femaleSurnames = ['Nováková', 'Svobodová', 'Novotná', 'Dvořáková', 'Černá', 'Procházková', 'Kučerová', 'Veselá', 'Horáčková', 'Němcová', 'Kratochvílová', 'Benešová', 'Krejčí', 'Králová', 'Jelínková', 'Vávrová', 'Růžičková', 'Bartošová', 'Fialová', 'Hájková', 'Sedláčková', 'Matějíčková', 'Křížová', 'Hlaváčková', 'Dušková', 'Blahová', 'Šimková', 'Vondráčková', 'Malíková', 'Roubalová', 'Musilová'];
+let name = "Arthur";
+let age = 30;
+let planet = name === "Ford" ? "Betelgeuse VII"
+  : name === "Trillian" || name === "Arthur" ? "Earth"
+  : age < 0 ? "Magrathea"
+  : "Vogsphere";
 
-const maleNames = ['Adam', 'Bohumil', 'David', 'Dominik', 'Filip', 'Jakub', 'Jan', 'Jiří', 'Josef', 'Lukáš', 'Martin', 'Matěj', 'Michal', 'Petr', 'Radek', 'Rudolf', 'Šimon', 'Tomáš', 'Václav', 'Vít', 'Zbyněk', 'Zdeněk'];
-
-const maleSurnames = ['Novák', 'Svoboda', 'Novotný', 'Dvořák', 'Černý', 'Procházka', 'Kučera', 'Veselý', 'Horáček', 'Němec', 'Kratochvíl', 'Beneš', 'Krejčí', 'Královský', 'Jelínek', 'Vávra', 'Růžička', 'Bartoš', 'Fiala', 'Hájek', 'Sedláček', 'Matějíček', 'Kříž', 'Hlaváček', 'Dušek', 'Blaha', 'Šimek', 'Vondráček', 'Malý', 'Roubal', 'Musil'];
-
-class Employee {
-  constructor(name, surname, gender, birthdate, workload) {
-    this.name = name;
-    this.surname = surname;
-    this.gender = gender;
-    this.birthdate = birthdate;
-    this.workload = workload;
+  for (let i = 0; i < 2; i++) {
+    console.log("ahoj");
   }
+
+  const person = {fname:"John", lname:"Doe", age:25};
+
+let text = "";
+let x;
+for (x in person) {
+  text += person[x];
 }
 
-function generateRandomDate(start, end) {
-  return new Date(start.getTime() + Math.random
+console.log(text);
+
+let pocitadlo = 0;
+while (pocitadlo < 3) {
+  pocitadlo++;
+  console.log("ahoj");
+}
+console.log("-------------------------------")
+
+let pocitadlo2 = 0;
+while(pocitadlo2 < 10) {
+  console.log("ahoj");
+  if (pocitadlo2 === 2) {
+    break;
+  }
+  pocitadlo2++;
+}
