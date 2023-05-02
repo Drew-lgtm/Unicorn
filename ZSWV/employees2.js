@@ -35,7 +35,7 @@ function generateBirthdate(min, max) {
 }
 
 
-function generateEmployee(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames) {
+function generateEmployeeData(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames) {
   const isMale = Math.random() < 0.5; // náhodně určíme pohlaví
   const name = isMale ? randomItem(maleNames) : randomItem(femaleNames); // náhodně vybereme jméno podle pohlaví
   const surname = isMale ? randomItem(maleSurnames) : randomItem(femaleSurnames); // náhodně vybereme příjmení podle pohlaví
@@ -56,7 +56,7 @@ function main(dtoIn) {
   const employees = [];
 
   for (let i = 0; i < numEmployees; i++) {
-    const employee = generateEmployee(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames);
+    const employee = generateEmployeeData(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames);
     employees.push(employee);
   }
 
