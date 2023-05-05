@@ -16,8 +16,4 @@ class Employee {
   }
 }
 
-function generateRandomDate(start, end) {
-  return new Date(start.getTime() + Math.random
-
-
 console.log("End of the line")
