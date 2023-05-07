@@ -47,6 +47,63 @@ function generateEmployeeData(min, max, maleNames, femaleNames, maleSurnames, fe
 }
 
 
+function getEmployeeStatistics(employeeList) {
+  // Počet zaměstnanců
+  const employeeCount = employeeList.length;
+
+  // Počet zaměstnanců podle výše úvazku
+  const hoursMap = new Map();
+  employeeList.forEach(employee => {
+    if (!hoursMap.has(employee.hoursPerWeek)) {
+      hoursMap.set(employee.hoursPerWeek, 0);
+    }
+    hoursMap.set(employee.hoursPerWeek, hoursMap.get(employee.hoursPerWeek) + 1);
+  });
+
+  // Průměrný věk
+  const ageSum = employeeList.reduce((sum, employee) => sum + employee.age, 0);
+  const averageAge = Math.round((ageSum / employeeCount) * 10) / 10;
+
+  // Minimální a maximální věk
+  const sortedAges = employeeList.map(employee => employee.age).sort((a, b) => a - b);
+  const minAge = sortedAges[0];
+  const maxAge = sortedAges[sortedAges.length - 1];
+
+  // Medián věku
+  const middle = Math.floor(sortedAges.length / 2);
+  const medianAge = sortedAges.length % 2 !== 0 ? sortedAges[middle] : (sortedAges[middle - 1] + sortedAges[middle]) / 2;
+
+  // Medián výše úvazku
+  const sortedHours = employeeList.map(employee => employee.hoursPerWeek).sort((a, b) => a - b);
+  const medianHours = sortedHours.length % 2 !== 0 ? sortedHours[middle] : (sortedHours[middle - 1] + sortedHours[middle]) / 2;
+
+  // Průměrná výše úvazku v rámci žen
+  const femaleEmployees = employeeList.filter(employee => employee.gender === "female");
+  const femaleHoursSum = femaleEmployees.reduce((sum, employee) => sum + employee.hoursPerWeek, 0);
+  const femaleAverageHours = femaleEmployees.length > 0 ? femaleHoursSum / femaleEmployees.length : 0;
+
+  // Seznam zaměstnanců setříděných dle výše úvazku od nejmenšího po největší
+  const sortedEmployees = employeeList.sort((a, b) => a.hoursPerWeek - b.hoursPerWeek);
+
+  return {
+    employeeCount,
+    hoursMap,
+    averageAge,
+    minAge,
+    maxAge,
+    medianAge,
+    medianHours,
+    femaleAverageHours,
+    sortedEmployees,
+  };
+}
+
+function main(dtoIn) {
+  const employeeList = generateEmployeeData(dtoIn);
+  const dtoOut = getEmployeeStatistics(employeeList);
+  return dtoOut;
+}
+
 
 function main(dtoIn) {
   const numEmployees = dtoIn.numEmployees;
@@ -64,7 +121,6 @@ function main(dtoIn) {
   return dtoOut;
 }
 
-
 // Testovací dtoIn
 const dtoIn = {
   numEmployees: 50,
@@ -75,3 +131,13 @@ const dtoIn = {
 // definice dtoOut a spuštění
 const dtoOut = main(dtoIn);
 console.log(dtoOut);
+
+console.log(typeof dtoOut)
+
+/*let employeeList = {}
+employeeList = dtoOut
+
+console.log(typeof employeeList)*/
+const employeeList = Object.values(dtoOut);
+const stats = getEmployeeStatistics(employeeList);
+console.log(stats);
