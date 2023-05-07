@@ -35,7 +35,7 @@ function generateBirthdate(min, max) {
 }
 
 
-function generateEmployeeData(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames) {
+function generateEmployee(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames) {
   const isMale = Math.random() < 0.5; // náhodně určíme pohlaví
   const name = isMale ? randomItem(maleNames) : randomItem(femaleNames); // náhodně vybereme jméno podle pohlaví
   const surname = isMale ? randomItem(maleSurnames) : randomItem(femaleSurnames); // náhodně vybereme příjmení podle pohlaví
@@ -47,108 +47,6 @@ function generateEmployeeData(min, max, maleNames, femaleNames, maleSurnames, fe
 }
 
 
-function getEmployeeStatistics(employeeList) {
-  // Počet zaměstnanců
-  const employeeCount = dtoIn.numEmployees;
-
-  // Počet zaměstnanců podle výše úvazku
-  /*const hoursMap = new Map();
-  employeeList.forEach(employee => {
-    if (!hoursMap.has(employee.hoursPerWeek)) {
-      hoursMap.set(employee.hoursPerWeek, 0);
-    }
-    hoursMap.set(employee.hoursPerWeek, hoursMap.get(employee.hoursPerWeek) + 1);
-  });
-*/
-const workloadCounts = dtoOut.employees.reduce((acc, cur) => {
-  acc.set(cur.workload, (acc.get(cur.workload) || 0) + 1);
-  return acc;
-}, new Map());
-
-
-
-  // Průměrný věk
-  const employees = dtoOut.employees;
-  const now = new Date();
-  let totalAge = 1;
-  for (let i = 0; i < employees.length; i++) {
-    const birthdate = new Date(employees[i].birthdate);
-    const age = now.getFullYear() - birthdate.getFullYear();
-    totalAge += age;
-  }
-  const averageAge = totalAge / employees.length;
-  console.log(averageAge);
-  
-  //  *SMAZAT sorted ages >> nepotřebné
-  const sortedAges = employeeList.map(employee => employee.age).sort((a, b) => a - b);
-
-  
-
-
-  // Medián věku + Minimální a maximální věk
-function median(values) {
-  values.sort(function(a, b) {
-    return a - b;
-  });
-
-  const half = Math.floor(values.length / 2);
-
-  if (values.length % 2 === 0) {
-    return (values[half - 1] + values[half]) / 2;
-  } else {
-    return values[half];
-  }
-}
-
-const ages = dtoOut.employees.map(employee => {
-  const birthDate = new Date(employee.birthdate);
-  const ageInMilliseconds = Date.now() - birthDate.getTime();
-  const ageInYears = ageInMilliseconds / 1000 / 60 / 60 / 24 / 365;
-  return ageInYears;
-});
-
-
-const minAge2 = Math.min(...ages);
-const minAge = Math.floor(minAge2)
-const maxAge2 = Math.max(...ages);
-const maxAge = Math.floor(maxAge2) 
-const medianAge2 = median(ages);
-const medianAge = Math.floor(medianAge2);
-  
-  
-
-  // Medián výše úvazku
-  const medianwork = arr => {
-    const mid = Math.floor(arr.length / 2),
-          nums = [...arr].sort((a, b) => a - b);
-    return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
-  };
-  
-  const workloads = dtoOut.employees.map(employee => employee.workload);
-  const medianWorkload = medianwork(workloads);
-
-  // Průměrná výše úvazku v rámci žen - pokud nejsou vrátí 0
-  const femaleEmployees = dtoOut.employees.filter(employee => employee.gender === 'female');
-  const totalWorkload = femaleEmployees.reduce((sum, employee) => sum + employee.workload, 0);
-  const averageWomenWorkload = femaleEmployees.length > 0 ? totalWorkload / femaleEmployees.length : 0;
-
-  // Seznam zaměstnanců setříděných dle výše úvazku od nejmenšího po největší
-  const sortedEmployees = dtoOut.employees.sort((a, b) => a.workload - b.workload);
-
-
-  return {
-    employeeCount,
-    //hoursMap,
-    workloadCounts,
-    averageAge,
-    minAge,
-    maxAge,
-    medianAge,
-    medianWorkload,
-    averageWomenWorkload,
-    sortedEmployees,
-  };
-}
 
 function main(dtoIn) {
   const numEmployees = dtoIn.numEmployees;
@@ -158,7 +56,7 @@ function main(dtoIn) {
   const employees = [];
 
   for (let i = 0; i < numEmployees; i++) {
-    const employee = generateEmployeeData(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames);
+    const employee = generateEmployee(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames);
     employees.push(employee);
   }
 
@@ -166,24 +64,15 @@ function main(dtoIn) {
   return dtoOut;
 }
 
+
 // Testovací dtoIn
 const dtoIn = {
-  numEmployees: 5,
+  numEmployees: 50,
   min: 19,
   max: 35
 };
 
 // definice dtoOut a spuštění
 const dtoOut = main(dtoIn);
+console.log(dtoOut);
 
-
-console.log(typeof dtoOut)
-
-/*let employeeList = {}
-employeeList = dtoOut
-
-console.log(typeof employeeList)*/
-const employeeList = Object.values(dtoOut);
-const stats = getEmployeeStatistics(employeeList);
-console.log(stats);
-//console.log(dtoOut);
