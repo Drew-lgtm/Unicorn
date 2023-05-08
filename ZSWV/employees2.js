@@ -34,7 +34,7 @@ function generateBirthdate(min, max) {
   return date.toISOString();
 }
 
-
+//funkce na random vytváření zaměstnanců
 function generateEmployeeData(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames) {
   const isMale = Math.random() < 0.5; // náhodně určíme pohlaví
   const name = isMale ? randomItem(maleNames) : randomItem(femaleNames); // náhodně vybereme jméno podle pohlaví
@@ -51,15 +51,6 @@ function getEmployeeStatistics(employeeList) {
   // Počet zaměstnanců
   const employeeCount = dtoIn.numEmployees;
 
-  // Počet zaměstnanců podle výše úvazku
-  /*const hoursMap = new Map();
-  employeeList.forEach(employee => {
-    if (!hoursMap.has(employee.hoursPerWeek)) {
-      hoursMap.set(employee.hoursPerWeek, 0);
-    }
-    hoursMap.set(employee.hoursPerWeek, hoursMap.get(employee.hoursPerWeek) + 1);
-  });
-*/
 const workloadCounts = dtoOut.employees.reduce((acc, cur) => {
   acc.set(cur.workload, (acc.get(cur.workload) || 0) + 1);
   return acc;
@@ -101,7 +92,7 @@ const ages = dtoOut.employees.map(employee => {
   return ageInYears;
 });
 
-
+//upravit do jednoho
 const minAge2 = Math.min(...ages);
 const minAge = Math.floor(minAge2)
 const maxAge2 = Math.max(...ages);
@@ -132,7 +123,6 @@ const medianAge = Math.floor(medianAge2);
 
   return {
     employeeCount,
-    //hoursMap,
     workloadCounts,
     averageAge,
     minAge,
@@ -143,7 +133,7 @@ const medianAge = Math.floor(medianAge2);
     sortedEmployees,
   };
 }
-
+//definování funkce main
 function main(dtoIn) {
   const numEmployees = dtoIn.numEmployees;
   const min = dtoIn.min;
@@ -170,7 +160,7 @@ const dtoIn = {
 // definice dtoOut a spuštění
 const dtoOut = main(dtoIn);
 
-
+// testování typu
 console.log(typeof dtoOut)
 
 const employeeList = Object.values(dtoOut);
