@@ -79,13 +79,7 @@ const workloadCounts = dtoOut.employees.reduce((acc, cur) => {
   const averageAge = totalAge / employees.length;
   console.log(averageAge);
   
-  //  *SMAZAT sorted ages >> nepotřebné
-  const sortedAges = employeeList.map(employee => employee.age).sort((a, b) => a - b);
-
-  
-
-
-  // Medián věku + Minimální a maximální věk
+// Medián věku + Minimální a maximální věk
 function median(values) {
   values.sort(function(a, b) {
     return a - b;
@@ -179,10 +173,6 @@ const dtoOut = main(dtoIn);
 
 console.log(typeof dtoOut)
 
-/*let employeeList = {}
-employeeList = dtoOut
-
-console.log(typeof employeeList)*/
 const employeeList = Object.values(dtoOut);
 const stats = getEmployeeStatistics(employeeList);
 console.log(stats);

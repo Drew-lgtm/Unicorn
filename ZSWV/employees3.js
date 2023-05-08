@@ -59,9 +59,82 @@ function main(dtoIn) {
     const employee = generateEmployee(min, max, maleNames, femaleNames, maleSurnames, femaleSurnames);
     employees.push(employee);
   }
+  
+  const dtoOut2 = { employees };
+    //All
+  //const employees = dtoOut2.employees;
+  const nameCounts = {};
 
-  const dtoOut = { employees };
-  return dtoOut;
+  for (const employee of employees) {
+    const firstName = employee.name;
+    if (nameCounts[firstName]) {
+      nameCounts[firstName]++;
+    } else {
+      nameCounts[firstName] = 1;
+    }
+  }
+  //male
+  const maleNamesCount = dtoOut2.employees.reduce((count, employee) => {
+    if (employee.gender === 'male') {
+      const name = employee.name;
+      count[name] = (count[name] || 0) + 1;
+    }
+    return count;
+  }, {});
+
+
+
+  //female
+  const femaleNamesCount = dtoOut2.employees.reduce((count, employee) => {
+    if (employee.gender === 'female') {
+      const name = employee.name;
+      count[name] = (count[name] || 0) + 1;
+    }
+    return count;
+  }, {});
+
+  //female parttime
+  const femalePartTimeCount = dtoOut2.employees.reduce((count, employee) => {
+    if (employee.gender === 'female' && employee.workload <= 30) {
+      const name = employee.name;
+      count[name] = (count[name] || 0) + 1;
+    }
+    return count;
+  }, {});
+
+  //male fulltime
+  const maleFullTimeCount = dtoOut2.employees.reduce((count, employee) => {
+    if (employee.gender === 'male' && employee.workload === 40) {
+      const name = employee.name;
+      count[name] = (count[name] || 0) + 1;
+    }
+    return count;
+  }, {});
+  
+    //Funkce na chart content
+    function getEmployeeChartContent(dtoOut) {
+      const chartData = {};
+      for (const key in dtoOut2.names) {
+        const data = dtoOut2.names[key];
+        chartData[key] = Object.entries(data)
+          .map(([label, value]) => ({ label, value }))
+          .sort((a, b) => b.value - a.value);
+      }
+      return { ...dtoOut, chartData };
+    }
+
+  const dtoOut = {
+    //employees: employees,
+    nameCounts: nameCounts,
+    maleNamesCount: maleNamesCount,
+    femaleNamesCount: femaleNamesCount,
+    femalePartTimeCount: femalePartTimeCount,
+    maleFullTimeCount: maleFullTimeCount,
+    chartData:getEmployeeChartContent()
+  };
+
+
+  console.log(dtoOut);
 }
 
 
@@ -74,5 +147,10 @@ const dtoIn = {
 
 // definice dtoOut a spuštění
 const dtoOut = main(dtoIn);
-console.log(dtoOut);
+//console.log(dtoOut);
+
+
+
+
+
 
