@@ -38,3 +38,10 @@ while(pocitadlo2 < 10) {
   }
   pocitadlo2++;
 }
+
+let answer2 = () => {
+  console.log(42);
+  console.log(42);
+};
+
+answer2;
