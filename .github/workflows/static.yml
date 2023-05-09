@@ -1,15 +1,13 @@
 #Deploy
 name: Deploy to S3
-
 on:
   push:
     branches:
       - main
 
 jobs:
-  build:
+  my-job:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout source code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - run: echo "Hello, world!"
