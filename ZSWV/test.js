@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 let a = 1
 let b = 2
 let c = 3
@@ -22,5 +24,6 @@ function generateBirthdate(minAge, maxAge) {
     const date = new Date(year, month, day);
     return date.toISOString();
   }
+>>>>>>> develop
 
   console.log(generateBirthdate(19, 65))
