@@ -1,0 +1,4 @@
+Monorepo:
+each project has its own branch
+ZSWV-2023 - Základy sofwarového vývoje: summer 2023
+BFSY-2023 - Fronend Systems: winter 2023
