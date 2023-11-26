@@ -1,4 +1,3 @@
-// NewItemInput.tsx
 import React, { useState } from 'react';
 
 interface NewItemInputProps {

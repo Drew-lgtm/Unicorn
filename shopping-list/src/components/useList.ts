@@ -1,4 +1,3 @@
-// useList.ts
 import { useState, useEffect } from 'react';
 import NewItemInput from './NewItemInput';
 

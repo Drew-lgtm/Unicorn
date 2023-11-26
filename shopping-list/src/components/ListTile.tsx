@@ -1,4 +1,3 @@
-// components/ListTile.tsx
 import React from 'react';
 import ListModal from './ListModal';
 

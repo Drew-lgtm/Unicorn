@@ -50,8 +50,6 @@ const List: React.FC<ListProps> = ({ listName }) => {
   const handleListNameChange = () => {
     const newName = prompt('Enter a new name for the shopping list', listName);
     if (newName !== null && newName.trim() !== '') {
-      // Perform the action to update the list name
-      // This could involve updating the parent component or state management
     }
   };
 
