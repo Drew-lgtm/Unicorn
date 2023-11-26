@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     if (username === 'user1' && password === 'password') {
       setUser(username);
       setLoginOpen(false);
-      navigate('/list'); // Redirect to the shopping list
+      navigate('/list'); // Redirect to the shopping list overview
     } else {
       alert('Invalid credentials');
     }
