@@ -1,4 +1,3 @@
-// ListModal.tsx
 import React from 'react';
 import useList from './useList';
 import NewItemInput from './NewItemInput';
