@@ -30,7 +30,7 @@ const ListOverview: React.FC = () => {
 
   const handleDeleteList = (listName: string) => {
     setListToDelete(listName);
-    // setShowConfirmationModal(true);
+    setSelectedList(listName);
     setIsConfirmationModalOpen(true);
   };
 
