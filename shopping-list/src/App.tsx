@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import ListOverview from './components/ListOverview';
+import PrivateRoute from './components/PrivateRoute';
 import './styles.css';
 
 const App: React.FC = () => {
