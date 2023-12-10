@@ -1,36 +1,66 @@
 import React, { useState } from 'react';
 import ListTile from './ListTile';
 import ListModal from './ListModal';
+import ConfirmationModal from './ConfirmationModal';
+import { lists } from './mockData';
 
 
 const ListOverview: React.FC = () => {
-    const [lists, setLists] = useState(['List1', 'List2', 'List3']);
-    const [archivedLists, setArchivedLists] = useState<string[]>([]);
-    const [selectedList, setSelectedList] = useState<string | null>(null);
-  
-    const handleListClick = (listName: string) => {
-      setSelectedList(listName);
+  const [lists, setLists] = useState(['Mock List1', 'Mock List2', 'Mock List3']);
+  const [archivedLists, setArchivedLists] = useState<string[]>([]);
+  const [selectedList, setSelectedList] = useState<string | null>(null);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [listToDelete, setListToDelete] = useState<string | null>(null);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState<boolean>(false);
+
+  const handleListClick = (listName: string) => {
+     setSelectedList(listName);
+  };
+
+  const handleModalClose = () => {
+    setSelectedList(null);
+  };
+
+  const handleAddList = () => {
+    const newListName = prompt('Enter the name for the new list');
+    if (newListName !== null && newListName.trim() !== '') {
+      setLists((prevLists) => [...prevLists, newListName]);
+    }
+  };
+
+  const handleDeleteList = (listName: string) => {
+    setListToDelete(listName);
+    // setShowConfirmationModal(true);
+    setIsConfirmationModalOpen(true);
+  };
+
+    const handleConfirmDelete = () => {
+    const confirmedList = listToDelete;
+    setShowConfirmationModal(false);
+    setListToDelete(null);
+
+    if (confirmedList) {
+      setLists((prevLists) => prevLists.filter((list) => list !== confirmedList));
+    }
+  };
+
+    const handleCancelDelete = () => {
+      setShowConfirmationModal(false);
+      setListToDelete(null);
     };
-  
-    const handleModalClose = () => {
+
+    const cancelDeleteList = () => {
       setSelectedList(null);
+      setIsConfirmationModalOpen(false);
+    };
+
+    const confirmDeleteList = () => {
+      setLists((prevLists) => prevLists.filter((list) => list !== selectedList));
+      setSelectedList(null);
+      setIsConfirmationModalOpen(false);
     };
   
-    const handleAddList = () => {
-      const newListName = prompt('Enter the name for the new list');
-      if (newListName !== null && newListName.trim() !== '') {
-        setLists((prevLists) => [...prevLists, newListName]);
-      }
-    };
-  
-    const handleDeleteList = (listName: string) => {
-      const confirmDelete = window.confirm(`Are you sure you want to delete the list "${listName}"?`);
-      if (confirmDelete) {
-        setLists((prevLists) => prevLists.filter((list) => list !== listName));
-        setSelectedList(null);
-      }
-    };
-  
+
     const handleArchiveList = (listName: string) => {
       setLists((prevLists) => prevLists.filter((list) => list !== listName));
       setArchivedLists((prevArchivedLists) => [...prevArchivedLists, listName]);
@@ -135,6 +165,14 @@ const ListOverview: React.FC = () => {
             </div>
           ))}
         </div>
+        {isConfirmationModalOpen && (
+          <ConfirmationModal
+            isOpen={isConfirmationModalOpen}
+            message={`Are you sure you want to delete this list "${selectedList}"?`}
+            onConfirm={confirmDeleteList}
+            onCancel={cancelDeleteList}
+          />
+        )}
         {selectedList && <ListModal listName={selectedList} onClose={handleModalClose} />}
       </div>
     );
