@@ -16,7 +16,6 @@ export const apiCalls = {
   
 };
 
-*/
 
 
 </void>const jokeDataList = useDataList({
@@ -55,3 +54,4 @@ function handleDelete(joke) {
   const dtoIn = { id: joke.id };
   return Calls.Joke.delete(dtoIn, props.baseUri);
 }
+*/
