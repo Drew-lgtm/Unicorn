@@ -82,14 +82,14 @@ const ListOverview: React.FC = () => {
               justifyContent: 'space-between',
               marginBottom: '10px',
               padding: '10px',
-              border: '1px solid #3498db', // Primary Color
+              border: '1px solid #3498db',
               borderRadius: '8px',
             }}
           >
             <ListTile listName={listName} onClick={() => handleListClick(listName)} />
             <button
               style={{
-                backgroundColor: '#dc3545', // Red
+                backgroundColor: '#dc3545',
                 color: '#fff',
                 border: 'none',
                 padding: '5px 10px',
@@ -102,7 +102,7 @@ const ListOverview: React.FC = () => {
             </button>
             <button
               style={{
-                backgroundColor: '#007bff', // Blue
+                backgroundColor: '#007bff',
                 color: '#fff',
                 border: 'none',
                 padding: '5px 10px',
@@ -117,7 +117,7 @@ const ListOverview: React.FC = () => {
         ))}
         <button
           style={{
-            backgroundColor: '#28a745', // Green
+            backgroundColor: '#28a745',
             color: '#fff',
             border: 'none',
             padding: '10px',
@@ -141,14 +141,14 @@ const ListOverview: React.FC = () => {
               justifyContent: 'space-between',
               marginBottom: '10px',
               padding: '10px',
-              border: '1px solid #28a745', // Green
+              border: '1px solid #28a745',
               borderRadius: '8px',
             }}
           >
             <ListTile listName={archivedList} onClick={() => handleListClick(archivedList)} />
             <button
               style={{
-                backgroundColor: '#28a745', // Green
+                backgroundColor: '#28a745',
                 color: '#fff',
                 border: 'none',
                 padding: '5px 10px',
