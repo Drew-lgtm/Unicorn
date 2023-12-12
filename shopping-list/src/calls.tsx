@@ -1,38 +1,57 @@
-import { create } from '@jest/fake-refs';
-import { render, screen, act } from '@testing-library/react';
-import ListOverview from './ListOverview';
-
-jest.mock('@testing-library/jest-dom', () => ({
-  render: () => ({
-    getByText: (text: string) => create('div', { children: text }),
-  }),
-}));
-
-describe('ListOverview', () => {
-  it('should render the list overview with mock data', () => {
-    const lists: string[] = ['Mock List1', 'Mock List2', 'Mock List3'];
-    const selectedList = 'Mock List2';
-
-    render(<ListOverview lists={lists} selectedList={selectedList} />);
-
-    expect(screen.getByText('List Overview')).toBeInTheDocument();
-    expect(screen.getByText(/Mock List1/)).toBeInTheDocument();
-    expect(screen.getByText(/Mock List2/)).toBeInTheDocument();
-    expect(screen.getByText(/Mock List3/)).toBeInTheDocument();
+/*
+const simulateAPICall = <T>(data: T, delay: number = 1000): Promise<T> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(data);
+    }, delay);
   });
+};
 
-  it('mock data', () => {
-    const lists: string[] = ['Mock List1', 'Mock List2', 'Mock List3'];
-    const selectedList = 'Mock List2';
+export const apiCalls = {
+  getLists: (): Promise<string[]> => simulateAPICall(['List1', 'List2', 'List3']),
 
-    jest.mock('./ListModal');
+  addList: (newListName: string): Promise<string[]> => simulateAPICall(['List1', 'List2', 'List3', newListName]),
 
-    render(<ListOverview lists={lists} selectedList={selectedList} />);
+  deleteList: (listName: string): Promise<void> => simulateAPICall(undefined),
+  
+};
 
-    act(() => {
-      fireEvent.click(screen.getByText(/Edit Mock List2/));
-    });
+*/
 
-    expect(screen.getByText('Mock List2 Edit')).toBeInTheDocument();
-  });
+
+</void>const jokeDataList = useDataList({
+  handlerMap: {
+    load: handleLoad,
+    loadNext: handleLoadNext,
+    create: handleCreate,
+  },
+  itemHandlerMap: {
+    update: handleUpdate,
+    delete: handleDelete,
+    getImage: handleGetImage,
+  },
+  pageSize: 3,
 });
+
+const imageUrlListRef = useRef([]);
+
+function handleLoad(dtoIn) {
+  return Calls.Joke.list(dtoIn);
+}
+
+function handleLoadNext(dtoIn) {
+  return Calls.Joke.list(dtoIn);
+}
+
+function handleCreate(values) {
+  return Calls.Joke.create(values);
+}
+
+async function handleUpdate() {
+  throw new Error("Joke update is not implemented yet.");
+}
+
+function handleDelete(joke) {
+  const dtoIn = { id: joke.id };
+  return Calls.Joke.delete(dtoIn, props.baseUri);
+}
