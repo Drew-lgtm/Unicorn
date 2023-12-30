@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import ListTile from './ListTile';
 import ListModal from './ListModal';
 import ConfirmationModal from './ConfirmationModal';
-import { lists } from './mockData';
+import { useDarkMode } from './your-dark-mode-context'; // Adjust the import based on your dark mode context
+import styled from 'styled-components';
 
 const ListOverview: React.FC = () => {
   const [lists, setLists] = useState(['Mock List1', 'Mock List2', 'Mock List3']);
