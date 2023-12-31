@@ -80,17 +80,26 @@ const Home: React.FC = () => {
     setSelectedLanguage(language);
   };
 
-  const translations = {
+  type Translations = {
+    en: { welcome: string; startManaging: string; login: string; guestShoppingList: string };
+    cz: { welcome: string; startManaging: string; login: string; guestShoppingList: string };
+  };
+  
+  const translations: Translations = {
     en: {
-      welcome: "Welcome to the shopping list application",
-      startManaging: "Start managing your shopping list 🛒",
+      welcome: 'Welcome to the shopping list application',
+      startManaging: 'Start managing your shopping list 🛒',
+      login: 'Login',
+      guestShoppingList: 'Go to Guest Shopping List (without login)',
     },
     cz: {
-      welcome: "Vítejte v aplikaci na nákupní listy!",
-      startManaging: "Začněte spravovat své nákupní listy 🛒",
+      welcome: 'Vítejte v aplikaci na evidenci nákupních listů!',
+      startManaging: 'Začněte spravovat své nákupní listy 🛒',
+      login: 'Přihlásit',
+      guestShoppingList: 'Přejít na nákupní seznam (bez přihlášení)',
     },
   };
-
+  
   return (
     <>
       <GlobalStyle />
@@ -107,7 +116,7 @@ const Home: React.FC = () => {
 
         {user ? (
           <div>
-            <h1 style={{ textAlign: 'center', color: '#333' }}>Welcome, {user}!</h1>
+            <h1 style={{ textAlign: 'center', color: '#333' }}>{`Welcome, ${user}!`}</h1>
             <p style={{ textAlign: 'center' }}>
               <button onClick={handleLogout}>Logout</button>
             </p>
@@ -119,19 +128,19 @@ const Home: React.FC = () => {
           </div>
         ) : (
           <div>
-            <h1 style={{ textAlign: 'center', color: '#333' }}>Welcome to the shopping list application</h1>
+            <h1 style={{ textAlign: 'center', color: '#333' }}>{translations[selectedLanguage].welcome}</h1>
             <p style={{ textAlign: 'center' }}>
-              Start managing your shopping list{' '}
+              {translations[selectedLanguage].startManaging}{' '}
               <span role="img" aria-label="shopping-cart">
                 🛒
               </span>
             </p>
             <p style={{ textAlign: 'center' }}>
-              <button onClick={() => setLoginOpen(true)}>Login</button>
+              <button onClick={() => setLoginOpen(true)}>{translations[selectedLanguage].login}</button>
             </p>
             <p style={{ textAlign: 'center' }}>
               <Link to="/list" style={{ textDecoration: 'none', color: '#007bff', fontWeight: 'bold' }}>
-                Go to Guest Shopping List (without login)
+                {translations[selectedLanguage].guestShoppingList}
               </Link>
             </p>
           </div>
