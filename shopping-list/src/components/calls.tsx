@@ -55,3 +55,4 @@ function handleDelete(joke) {
   return Calls.Joke.delete(dtoIn, props.baseUri);
 }
 */
+export {};

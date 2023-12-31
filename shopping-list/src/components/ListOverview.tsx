@@ -72,6 +72,39 @@ const ListOverview: React.FC = () => {
     setLists((prevLists) => [...prevLists, listName]);
   };
 
+  const ToggleButton = styled.button`
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 21px;
+    height: 21px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+
+  &.dark {
+    background-color: #333;
+
+    &:before {
+      transform: translateX(25px);
+    }
+  }
+`;
+
+
   return (
     <div style={{ maxWidth: '600px', margin: 'auto', padding: '20px', background: darkMode ? '#333' : '#fff', color: darkMode ? '#fff' : '#000' }}>
       <h1>List Overview</h1>
@@ -174,7 +207,7 @@ const ListOverview: React.FC = () => {
         />
       )}
       {selectedList && <ListModal listName={selectedList} onClose={handleModalClose} />}
-      <Switch checked={darkMode} onChange={toggleDarkMode} onColor="#333" offColor="#aaa" uncheckedIcon={false} checkedIcon={false} />
+      <ToggleButton className={darkMode ? 'dark' : ''} onClick={toggleDarkMode} />
     </div>
   );
 };
