@@ -83,7 +83,9 @@ const Home: React.FC = () => {
   type Translations = {
     en: { welcome: string; startManaging: string; login: string; guestShoppingList: string };
     cz: { welcome: string; startManaging: string; login: string; guestShoppingList: string };
+    [key: string]: { welcome: string; startManaging: string; login: string; guestShoppingList: string };
   };
+  
   
   const translations: Translations = {
     en: {
