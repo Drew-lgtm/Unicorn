@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface DarkModeContextType {
   darkMode: boolean;
@@ -16,6 +16,7 @@ export const DarkModeProvider: React.FC<DarkModeProviderProps> = ({ children }) 
 
   const toggleDarkMode = () => {
     setDarkMode((prevMode) => !prevMode);
+    document.body.classList.toggle('dark');
   };
 
   const contextValue: DarkModeContextType = {
@@ -33,3 +34,4 @@ export const useDarkMode = (): DarkModeContextType => {
   }
   return context;
 };
+export default DarkModeContext;

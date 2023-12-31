@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import ListTile from './ListTile';
 import ListModal from './ListModal';
 import ConfirmationModal from './ConfirmationModal';
-import { useDarkMode } from './your-dark-mode-context'; // Adjust the import based on your dark mode context
 import styled from 'styled-components';
+import { useDarkMode } from './DarkModeContext';
+import { createGlobalStyle } from 'styled-components';
 
 const ListOverview: React.FC = () => {
+  const { darkMode, toggleDarkMode } = useDarkMode();
   const [lists, setLists] = useState(['Mock List1', 'Mock List2', 'Mock List3']);
   const [archivedLists, setArchivedLists] = useState<string[]>([]);
   const [selectedList, setSelectedList] = useState<string | null>(null);
@@ -71,7 +73,7 @@ const ListOverview: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: 'auto', padding: '20px' }}>
+    <div style={{ maxWidth: '600px', margin: 'auto', padding: '20px', background: darkMode ? '#333' : '#fff', color: darkMode ? '#fff' : '#000' }}>
       <h1>List Overview</h1>
       <div>
         {lists.map((listName, index) => (
@@ -90,8 +92,8 @@ const ListOverview: React.FC = () => {
             <ListTile listName={listName} onClick={() => handleListClick(listName)} />
             <button
               style={{
-                backgroundColor: '#dc3545',
-                color: '#fff',
+                backgroundColor: darkMode ? '#333' : '#dc3545',
+                color: darkMode ? '#fff' : '#fff',
                 border: 'none',
                 padding: '5px 10px',
                 borderRadius: '5px',
@@ -103,8 +105,8 @@ const ListOverview: React.FC = () => {
             </button>
             <button
               style={{
-                backgroundColor: '#007bff',
-                color: '#fff',
+                backgroundColor: darkMode ? '#333' : '#007bff',
+                color: darkMode ? '#fff' : '#fff',
                 border: 'none',
                 padding: '5px 10px',
                 borderRadius: '5px',
@@ -118,8 +120,8 @@ const ListOverview: React.FC = () => {
         ))}
         <button
           style={{
-            backgroundColor: '#28a745',
-            color: '#fff',
+            backgroundColor: darkMode ? '#333' : '#28a745',
+            color: darkMode ? '#fff' : '#fff',
             border: 'none',
             padding: '10px',
             borderRadius: '8px',
@@ -149,8 +151,8 @@ const ListOverview: React.FC = () => {
             <ListTile listName={archivedList} onClick={() => handleListClick(archivedList)} />
             <button
               style={{
-                backgroundColor: '#28a745',
-                color: '#fff',
+                backgroundColor: darkMode ? '#333' : '#28a745',
+                color: darkMode ? '#fff' : '#fff',
                 border: 'none',
                 padding: '5px 10px',
                 borderRadius: '5px',
@@ -172,6 +174,7 @@ const ListOverview: React.FC = () => {
         />
       )}
       {selectedList && <ListModal listName={selectedList} onClose={handleModalClose} />}
+      <Switch checked={darkMode} onChange={toggleDarkMode} onColor="#333" offColor="#aaa" uncheckedIcon={false} checkedIcon={false} />
     </div>
   );
 };

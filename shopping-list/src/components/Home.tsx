@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Login from './Login';
 import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components'; // Add this line
+import styled from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -56,12 +56,12 @@ const Home: React.FC = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
-
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
   const handleLogin = (username: string, password: string) => {
     if (username === 'user1' && password === 'password') {
       setUser(username);
       setLoginOpen(false);
-      navigate('/list'); // Redirect to the shopping list overview
+      navigate('/list');
     } else {
       alert('Invalid credentials');
     }
@@ -76,10 +76,35 @@ const Home: React.FC = () => {
     document.body.classList.toggle('dark');
   };
 
+  const handleLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+  };
+
+  const translations = {
+    en: {
+      welcome: "Welcome to the shopping list application",
+      startManaging: "Start managing your shopping list 🛒",
+    },
+    cz: {
+      welcome: "Vítejte v aplikaci na nákupní listy!",
+      startManaging: "Začněte spravovat své nákupní listy 🛒",
+    },
+  };
+
   return (
     <>
       <GlobalStyle />
       <div style={{ border: '1px solid #ccc', padding: '20px', borderRadius: '8px', maxWidth: '400px', margin: 'auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+          <label style={{ marginRight: '10px' }}>Light/Dark mode:</label>
+          <ToggleButton className={darkMode ? 'dark' : ''} onClick={toggleDarkMode} />
+          <label style={{ marginLeft: '10px', marginRight: '5px' }}>Language:</label>
+          <select value={selectedLanguage} onChange={(e) => handleLanguageChange(e.target.value)}>
+            <option value="en">EN</option>
+            <option value="cz">CZ</option>
+          </select>
+        </div>
+
         {user ? (
           <div>
             <h1 style={{ textAlign: 'center', color: '#333' }}>Welcome, {user}!</h1>
@@ -113,9 +138,6 @@ const Home: React.FC = () => {
         )}
 
         {loginOpen && <Login onLogin={handleLogin} onClose={() => setLoginOpen(false)} />}
-        <p style={{ textAlign: 'center' }}>
-          <ToggleButton className={darkMode ? 'dark' : ''} onClick={toggleDarkMode} />
-        </p>
       </div>
     </>
   );
