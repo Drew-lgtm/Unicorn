@@ -1,0 +1,24 @@
+{
+  "name": "unicorn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Drew-lgtm/Unicorn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Drew-lgtm/Unicorn/issues"
+  },
+  "homepage": "https://github.com/Drew-lgtm/Unicorn#readme",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^5.13.0"
+  }
+}
