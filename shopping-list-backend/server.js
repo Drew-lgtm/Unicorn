@@ -1,8 +1,12 @@
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const { v4: uuidv4 } = require('uuid');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// mock
 let shoppingLists = [];
 
 app.use(bodyParser.json());
