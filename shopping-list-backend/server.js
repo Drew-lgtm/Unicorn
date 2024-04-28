@@ -12,10 +12,20 @@ let shoppingLists = [];
 app.use(bodyParser.json());
 
 function validateInputData(req, res, next) {
+  const { name, items } = req.body;
+
+  if (!name || !items || !Array.isArray(items)) {
+    return res.status(400).json({ error: 'Invalid input data' });
+  }
+
   next();
 }
 
+
+
 function authorize(req, res, next) {
+  
+  //Authentication defaut
   const isAuthenticated = true; 
   if (!isAuthenticated) {
     return res.status(401).json({ error: 'Unauthorized' });
@@ -24,18 +34,23 @@ function authorize(req, res, next) {
   next();
 }
 
+
+// CRUD
 app.get('/', (req, res) => {
   res.send('Welcome to the Shopping List API!');
 });
 
-app.get('/api/lists', authorize, (req, res) => {
-  res.json(shoppingLists);
-});
-
 app.post('/api/lists', authorize, validateInputData, (req, res) => {
-  const newList = req.body;
+  const newList = {
+    _id: uuidv4(),
+    ...req.body
+  };
   shoppingLists.push(newList);
   res.status(201).json(newList);
+});
+
+app.get('/api/lists', authorize, (req, res) => {
+  res.json(shoppingLists);
 });
 
 app.put('/api/lists/:listId', authorize, validateInputData, (req, res) => {
@@ -63,6 +78,7 @@ app.delete('/api/lists/:listId', authorize, (req, res) => {
   }
 });
 
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
