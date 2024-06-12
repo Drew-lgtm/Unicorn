@@ -1,3 +1,4 @@
+// src/components/MyDiary.js
 import React from 'react';
 
 const MyDiary = () => {

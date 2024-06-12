@@ -1,32 +1,46 @@
+// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 import MyDiary from './components/MyDiary';
 import MyTodo from './components/MyTodo';
 import MyNotes from './components/MyNotes';
-import './App.css';
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="App">
+      <div style={styles.container}>
         <Header />
-        <main>
-          <h1>Welcome to MY APP</h1>
-          <div className="button-group">
-            <Link to="/mydiary"><button>MyDiary</button></Link>
-            <Link to="/mytodo"><button>MyTodo</button></Link>
-            <Link to="/mynotes"><button>MyNotes</button></Link>
+        <div style={styles.content}>
+          <Sidebar />
+          <div style={styles.main}>
+            <Routes>
+              <Route path="/my-diary" element={<MyDiary />} />
+              <Route path="/my-todo" element={<MyTodo />} />
+              <Route path="/my-notes" element={<MyNotes />} />
+            </Routes>
           </div>
-          <Routes>
-            <Route path="/mydiary" element={<MyDiary />} />
-            <Route path="/mytodo" element={<MyTodo />} />
-            <Route path="/mynotes" element={<MyNotes />} />
-          </Routes>
-        </main>
+        </div>
       </div>
     </Router>
   );
-}
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh',
+  },
+  content: {
+    display: 'flex',
+    flex: 1,
+  },
+  main: {
+    flex: 1,
+    padding: '10px',
+  },
+};
 
 export default App;

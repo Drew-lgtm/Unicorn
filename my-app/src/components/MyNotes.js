@@ -1,3 +1,4 @@
+// src/components/MyNotes.js
 import React from 'react';
 
 const MyNotes = () => {
