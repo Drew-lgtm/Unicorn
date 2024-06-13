@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
@@ -6,6 +5,8 @@ import Sidebar from './components/Sidebar';
 import MyDiary from './components/MyDiary';
 import MyTodo from './components/MyTodo';
 import MyNotes from './components/MyNotes';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.css';
 
 const App = () => {
   return (

@@ -1,0 +1,33 @@
+/* Header.css */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .header-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon-container {
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .icon {
+    font-size: 1.5rem; /* Adjust icon size */
+    color: white;
+    transition: transform 0.3s ease;
+  }
+  
+  .icon:hover {
+    transform: scale(1.1); /* Add a hover effect */
+  }
+  
+  .reminder-text {
+    margin-left: 10px; /* Adjust spacing */
+    color: white;
+  }
+  
