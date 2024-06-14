@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar';
 import MyDiary from './components/MyDiary';
 import MyTodo from './components/MyTodo';
 import MyNotes from './components/MyNotes';
+import Profile from './components/Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 
@@ -20,6 +21,7 @@ const App = () => {
               <Route path="/my-diary" element={<MyDiary />} />
               <Route path="/my-todo" element={<MyTodo />} />
               <Route path="/my-notes" element={<MyNotes />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
           </div>
         </div>

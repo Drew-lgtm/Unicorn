@@ -1,72 +1,88 @@
-import React, { useState } from 'react';
+// src/components/MyTodo.js
+import React, { useState, useEffect } from 'react';
 
 const MyTodo = () => {
-  const initialTasks = [
-    { id: 1, text: 'Task 1', completed: true },
-    { id: 2, text: 'Task 2', completed: false },
-    { id: 3, text: 'Task 3', completed: true },
-    { id: 4, text: 'Task 4', completed: false },
-    { id: 5, text: 'Task 5', completed: true },
-  ];
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    return savedTasks
+      ? JSON.parse(savedTasks)
+      : [
+          { id: 1, text: 'Sign for Erasmus+', completed: false },
+          { id: 2, text: 'Learn for math test 2', completed: true },
+          { id: 3, text: 'Learn React', completed: false },
+          { id: 4, text: 'Buy dinner', completed: true },
+          { id: 5, text: 'Learn vocabulary for english exam', completed: false },
+        ];
+  });
+  const [newTask, setNewTask] = useState('');
 
-  const [tasks, setTasks] = useState(initialTasks);
-  const [task, setTask] = useState('');
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
-  const handleChange = (event) => {
-    setTask(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (task.trim() === '') return; // Prevent adding empty tasks
-    const newTask = {
-      id: tasks.length + 1,
-      text: task,
-      completed: false,
-    };
-    setTasks([...tasks, newTask]);
-    setTask('');
-  };
-
-  const handleToggleComplete = (id) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === id ? { ...task, completed: !task.completed } : task
+  const handleCheckboxChange = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
     );
-    setTasks(updatedTasks);
   };
 
   const handleDelete = (id) => {
-    const updatedTasks = tasks.filter((task) => task.id !== id);
-    setTasks(updatedTasks);
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
+  const handleAddTask = (e) => {
+    e.preventDefault();
+    if (newTask.trim()) {
+      const newTaskObject = {
+        id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
+        text: newTask,
+        completed: false,
+      };
+      setTasks([...tasks, newTaskObject]);
+      setNewTask('');
+    }
   };
 
   return (
     <div>
       <h2>My Todo</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleAddTask} style={styles.form}>
         <input
           type="text"
-          placeholder="Enter task"
-          value={task}
-          onChange={handleChange}
-          required
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          placeholder="Add a new task"
+          style={styles.input}
         />
-        <button type="submit">Add Task</button>
+        <button type="submit" style={styles.button}>
+          Add
+        </button>
       </form>
-      <hr />
-      <ul style={styles.taskList}>
+      <ul style={styles.list}>
         {tasks.map((task) => (
-          <li key={task.id} style={styles.taskItem}>
+          <li key={task.id} style={styles.listItem}>
             <input
               type="checkbox"
               checked={task.completed}
-              onChange={() => handleToggleComplete(task.id)}
+              onChange={() => handleCheckboxChange(task.id)}
               style={styles.checkbox}
             />
-            <span style={{ textDecoration: task.completed ? 'line-through' : 'none', marginRight: '10px' }}>
+            <span
+              style={{
+                ...styles.taskText,
+                textDecoration: task.completed ? 'line-through' : 'none',
+              }}
+            >
               {task.text}
             </span>
-            <button onClick={() => handleDelete(task.id)} style={styles.deleteButton}>Delete</button>
+            <button
+              onClick={() => handleDelete(task.id)}
+              style={styles.deleteButton}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
@@ -75,11 +91,30 @@ const MyTodo = () => {
 };
 
 const styles = {
-  taskList: {
-    listStyleType: 'none',
-    padding: 0,
+  form: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '20px',
   },
-  taskItem: {
+  input: {
+    padding: '10px',
+    fontSize: '16px',
+    flexGrow: 1,
+    marginRight: '10px',
+  },
+  button: {
+    padding: '10px 20px',
+    fontSize: '16px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+  },
+  list: {
+    listStyle: 'none',
+    paddingLeft: 0,
+  },
+  listItem: {
     display: 'flex',
     alignItems: 'center',
     marginBottom: '10px',
@@ -87,10 +122,14 @@ const styles = {
   checkbox: {
     marginRight: '10px',
   },
+  taskText: {
+    flexGrow: 1,
+    marginRight: '10px',
+  },
   deleteButton: {
-    marginLeft: '10px',
     padding: '5px 10px',
-    backgroundColor: 'red',
+    fontSize: '12px',
+    backgroundColor: '#dc3545',
     color: 'white',
     border: 'none',
     cursor: 'pointer',

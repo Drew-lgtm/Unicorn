@@ -1,24 +1,26 @@
-import React, { useState } from 'react';
-import { FaBell } from 'react-icons/fa'; // Import bell icon from react-icons
-import './Header.css'; // Optionally, import CSS for styling
+// src/components/Header.js
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const [showReminders, setShowReminders] = useState(false);
+  const navigate = useNavigate();
 
-  const toggleReminders = () => {
-    setShowReminders(!showReminders);
+  const handleBellClick = () => {
+    alert('No reminders');
+  };
+
+  const handleUserClick = () => {
+    navigate('/profile');
   };
 
   return (
     <header style={styles.header}>
-      <div className="header-content">
-        <h1>Welcome to MY APP</h1>
-        <div className="header-icons">
-          <div onClick={toggleReminders} className="icon-container">
-            <FaBell className="icon" />
-          </div>
-          {showReminders && <p className="reminder-text">Don't forget to create diary entry today!</p>}
-        </div>
+      <h1 style={styles.title}>Welcome to MyMind APP</h1>
+      <div style={styles.icons}>
+        <FontAwesomeIcon icon={faBell} style={styles.icon} onClick={handleBellClick} />
+        <FontAwesomeIcon icon={faUser} style={styles.icon} onClick={handleUserClick} />
       </div>
     </header>
   );
@@ -31,8 +33,19 @@ const styles = {
     backgroundColor: '#282c34',
     color: 'white',
     display: 'flex',
-    justifyContent: 'center', // Center items horizontally
-    alignItems: 'center', // Center items vertically
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  title: {
+    margin: 0,
+  },
+  icons: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  icon: {
+    marginLeft: '20px',
+    cursor: 'pointer',
   },
 };
 
