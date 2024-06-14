@@ -1,7 +1,9 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import Home from './components/Home';
 import MyDiary from './components/MyDiary';
 import MyTodo from './components/MyTodo';
 import MyNotes from './components/MyNotes';
@@ -18,6 +20,7 @@ const App = () => {
           <Sidebar />
           <div style={styles.main}>
             <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/my-diary" element={<MyDiary />} />
               <Route path="/my-todo" element={<MyTodo />} />
               <Route path="/my-notes" element={<MyNotes />} />

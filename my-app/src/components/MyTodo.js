@@ -1,4 +1,3 @@
-// src/components/MyTodo.js
 import React, { useState, useEffect } from 'react';
 
 const MyTodo = () => {

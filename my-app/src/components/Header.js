@@ -1,8 +1,7 @@
 // src/components/Header.js
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { FaBell, FaUser, FaHome } from 'react-icons/fa';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -11,16 +10,21 @@ const Header = () => {
     alert('No reminders');
   };
 
-  const handleUserClick = () => {
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
+  const handleProfileClick = () => {
     navigate('/profile');
   };
 
   return (
     <header style={styles.header}>
-      <h1 style={styles.title}>Welcome to MyMind APP</h1>
-      <div style={styles.icons}>
-        <FontAwesomeIcon icon={faBell} style={styles.icon} onClick={handleBellClick} />
-        <FontAwesomeIcon icon={faUser} style={styles.icon} onClick={handleUserClick} />
+      <h1 style={styles.title}>MyMind</h1>
+      <div style={styles.iconContainer}>
+        <FaHome style={styles.icon} onClick={handleHomeClick} />
+        <FaBell style={styles.icon} onClick={handleBellClick} />
+        <FaUser style={styles.icon} onClick={handleProfileClick} />
       </div>
     </header>
   );
@@ -33,19 +37,23 @@ const styles = {
     backgroundColor: '#282c34',
     color: 'white',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
   },
   title: {
-    margin: 0,
+    flex: 1,
+    textAlign: 'center',
   },
-  icons: {
+  iconContainer: {
+    position: 'absolute',
+    right: '20px',
     display: 'flex',
-    alignItems: 'center',
+    gap: '20px',
   },
   icon: {
-    marginLeft: '20px',
     cursor: 'pointer',
+    fontSize: '20px',
   },
 };
 
