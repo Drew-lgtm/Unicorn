@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f0f0f0; }
+        .container { background: white; padding: 20px; border: 1px solid black; width: 300px; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 5px; }
+        .delete-btn { color: red; cursor: pointer; margin-left: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Todo App</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter task...">
+    <button onclick="addTask()">Add</button>
+
+    <h3>Tasks:</h3>
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    const apiUrl = '/api/todos';
+
+    // Load tasks on startup
+    window.onload = async () => {
+        try {
+            const response = await fetch(apiUrl);
+            if (response.ok) {
+                const tasks = await response.json();
+                const list = document.getElementById('taskList');
+                list.innerHTML = '';
+                tasks.forEach(task => displayTask(task));
+            }
+        } catch (e) {
+            console.error("Could not load tasks:", e);
+        }
+    };
+
+    // Add new task
+    async function addTask() {
+        const input = document.getElementById('taskInput');
+        const text = input.value;
+        if (!text) return;
+
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ task: text, isCompleted: false })
+        });
+
+        const newTask = await response.json();
+        displayTask(newTask);
+        input.value = '';
+    }
+
+    // Delete task
+    async function deleteTask(id, element) {
+        await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+        element.remove();
+    }
+
+    // Helper to display HTML
+    function displayTask(todo) {
+        const list = document.getElementById('taskList');
+        const li = document.createElement('li');
+        li.innerHTML = `
+            ${todo.task}
+            <span class="delete-btn" onclick="deleteTask(${todo.id}, this.parentNode)">[x]</span>
+        `;
+        list.appendChild(li);
+    }
+</script>
+</body>
+</html>
