@@ -8,21 +8,20 @@ import jakarta.persistence.Id;
 @Entity
 public class Todo {
 
-    @Id
+    @Id // pk for the database
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String task;
     private boolean isCompleted;
 
-    // Default constructor needed for JPA
+    //  constructor required for the database
     public Todo() {}
 
     public Todo(String task) {
         this.task = task;
         this.isCompleted = false;
     }
-
-    // Getters and Setters
+    // getters and setters so other classes can access these variables
     public Long getId() { return id; }
     public String getTask() { return task; }
     public void setTask(String task) { this.task = task; }
